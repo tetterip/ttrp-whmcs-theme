@@ -14243,20 +14243,36 @@ dataTable: function () {
         var el = jQuery('#' + id);
         if (typeof self.tables[id] === 'undefined') {
             if (typeof options === 'undefined') {
-
                 options = {
                     dom: '<"listtable"ift>pl',
                     paging: false,
+                    lengthChange: false,
                     searching: false,
                     ordering: true,
                     info: false,
+                    autoWidth: true,
                     language: {
                         emptyTable: (el.data('lang-empty-table')) ? el.data('lang-empty-table') : "No records found"
-                    },
-                    ajax: {
-                        url: el.data("ajax-url")
                     }
                 };
+            }
+            var ajaxUrl = el.data('ajax-url');
+            if (typeof ajaxUrl !== 'undefined') {
+                options.ajax = {
+                    url: ajaxUrl
+                };
+            }
+            var dom = el.data('dom');
+            if (typeof dom !== 'undefined') {
+                options.dom = dom;
+            }
+            var searching = el.data('searching');
+            if (typeof searching !== 'undefined') {
+                options.searching = searching;
+            }
+            var responsive = el.data('responsive');
+            if (typeof responsive !== 'undefined') {
+                options.responsive = responsive;
             }
             var ordering = el.data('ordering');
             if (typeof ordering !== 'undefined') {
@@ -14272,7 +14288,19 @@ dataTable: function () {
             }
             var autoWidth = el.data('auto-width');
             if (typeof autoWidth !== 'undefined') {
-                options["bAutoWidth"] = autoWidth;
+                options["autoWidth"] = autoWidth;
+            }
+            var paging = el.data('paging');
+            if (typeof paging !== 'undefined') {
+                options["paging"] = paging;
+            }
+            var lengthChange = el.data('length-change');
+            if (typeof lengthChange !== 'undefined') {
+                options["lengthChange"] = lengthChange;
+            }
+            var pageLength = el.data('page-length');
+            if (typeof pageLength !== 'undefined') {
+                options["pageLength"] = pageLength;
             }
 
             self.tables[id] = self.initTable(el, options);
@@ -14480,8 +14508,57 @@ function () {
         return s;
     };
 
+    this.getRouteUrl = function (path) {
+        return whmcsBaseUrl + "/index.php?rp=" + path;
+    };
+
+    this.validateBaseUrl = function() {
+        if (typeof window.whmcsBaseUrl === 'undefined') {
+            console.log('Warning: The WHMCS Base URL definition is missing '
+                + 'from your active template. Please refer to '
+                + 'https://docs.whmcs.com/WHMCS_Base_URL_Template_Variable '
+                + 'for more information and details of how to resolve this '
+                + 'warning.');
+            window.whmcsBaseUrl = this.autoDetermineBaseUrl();
+            window.whmcsBaseUrlAutoSet = true;
+        } else if (window.whmcsBaseUrl === ''
+            && typeof window.whmcsBaseUrlAutoSet !== 'undefined'
+            && window.whmcsBaseUrlAutoSet === true
+        ) {
+            window.whmcsBaseUrl = this.autoDetermineBaseUrl();
+        }
+    };
+
+    this.autoDetermineBaseUrl = function() {
+        var windowLocation = window.location.href;
+        var phpExtensionLocation = -1;
+
+        if (typeof windowLocation !== 'undefined') {
+            phpExtensionLocation = windowLocation.indexOf('.php');
+        }
+
+        if (phpExtensionLocation === -1) {
+            windowLocation = jQuery('#Primary_Navbar-Home a').attr('href');
+            if (typeof windowLocation !== 'undefined') {
+                phpExtensionLocation = windowLocation.indexOf('.php');
+            }
+        }
+
+        if (phpExtensionLocation !== -1) {
+            windowLocation = windowLocation.substring(0, phpExtensionLocation);
+            var lastTrailingSlash = windowLocation.lastIndexOf('/');
+            if (lastTrailingSlash !== false) {
+                return windowLocation.substring(0, lastTrailingSlash);
+            }
+        }
+
+        return '';
+    };
+
     return this;
 });
+
+WHMCS.utils.validateBaseUrl();
 
 /**
  * Javascript functions utilised by the client area templates.
@@ -14634,13 +14711,19 @@ jQuery(document).ready(function() {
     // Mass Domain Management Bulk Action Handling
     jQuery(".setBulkAction").click(function(event) {
         event.preventDefault();
-        var id = jQuery(this).attr('id').replace("Link", "");
-        if (jQuery("#" + id).length != 0) {
-            var action = jQuery("#domainForm").attr("action");
-            jQuery("#domainForm").attr("action", action + "#" + id);
+        var id = jQuery(this).attr('id').replace('Link', ''),
+            domainForm = jQuery('#domainForm');
+
+        if (id === 'renewDomains') {
+            domainForm.attr('action', WHMCS.utils.getRouteUrl('/cart/domain/renew'));
+        } else {
+            if (jQuery('#' + id).length !== 0) {
+                var action = domainForm.attr('action');
+                domainForm.attr('action', action + '#' + id);
+            }
+            jQuery('#bulkaction').val(id);
         }
-        jQuery("#bulkaction").val(id);
-        jQuery("#domainForm").submit();
+        domainForm.submit();
     });
 
     // Stop events on objects with this class from bubbling up the dom
@@ -14943,6 +15026,35 @@ jQuery(document).ready(function() {
         );
     });
 
+    // Domain Pricing Table Filters
+    jQuery(".tld-filters a").click(function(e) {
+        e.preventDefault();
+
+        if (jQuery(this).hasClass('label-success')) {
+            jQuery(this).removeClass('label-success');
+        } else {
+            jQuery(this).addClass('label-success');
+        }
+
+        jQuery('.tld-row').removeClass('filtered-row');
+        jQuery('.tld-filters a.label-success').each(function(index) {
+            var filterValue = jQuery(this).data('category');
+            jQuery('.tld-row[data-category*="' + filterValue + '"]').addClass('filtered-row');
+        });
+        jQuery(".filtered-row:even").removeClass('highlighted');
+        jQuery(".filtered-row:odd").addClass('highlighted');
+        jQuery('.tld-row:not(".filtered-row")').fadeOut('', function() {
+            if (jQuery('.filtered-row').size() === 0) {
+                jQuery('.tld-row.no-tlds').show();
+            } else {
+                jQuery('.tld-row.no-tlds').hide();
+            }
+        });
+        jQuery('.tld-row.filtered-row').fadeIn();
+    });
+    jQuery(".filtered-row:even").removeClass('highlighted');
+    jQuery(".filtered-row:odd").addClass('highlighted');
+
     // DataTable data-driven auto object registration
     WHMCS.ui.dataTable.register();
 
@@ -15206,6 +15318,15 @@ function getTicketSuggestions() {
         lastTicketMsg = userMsg;
     }
     setTimeout('getTicketSuggestions()', 3000);
+}
+
+/**
+ * Smooth scroll to named element.
+ */
+function smoothScroll(element) {
+    $('html, body').animate({
+        scrollTop: $(element).offset().top
+    }, 500);
 }
 
 /*!
@@ -37793,8 +37914,12 @@ jQuery(document).ready(function() {
             phoneInput.on('blur keydown', function (e) {
                 if (e.type === 'blur' || (e.type === 'keydown' && e.keyCode === 13)) {
                     var number = jQuery(this).intlTelInput("getNumber"),
-                        countryData = jQuery(this).intlTelInput("getSelectedCountryData");
-                    number = number.replace('+' + countryData.dialCode, '');
+                        countryData = jQuery(this).intlTelInput("getSelectedCountryData"),
+                        countryPrefix = '+' + countryData.dialCode;
+
+                    if (number.indexOf(countryPrefix) === 0 && (number.match(/\+/g) || []).length > 1) {
+                        number = number.substr(countryPrefix.length);
+                    }
                     jQuery(this).intlTelInput("setNumber", number);
                 }
             });
@@ -37850,8 +37975,12 @@ jQuery(document).ready(function() {
                 thisInput.on('blur keydown', function (e) {
                     if (e.type === 'blur' || (e.type === 'keydown' && e.keyCode === 13)) {
                         var number = jQuery(this).intlTelInput("getNumber"),
-                            countryData = jQuery(this).intlTelInput("getSelectedCountryData");
-                        number = number.replace('+' + countryData.dialCode, '');
+                            countryData = jQuery(this).intlTelInput("getSelectedCountryData"),
+                            countryPrefix = '+' + countryData.dialCode;
+
+                        if (number.indexOf(countryPrefix) === 0 && (number.match(/\+/g) || []).length > 1) {
+                            number = number.substr(countryPrefix.length);
+                        }
                         jQuery(this).intlTelInput("setNumber", number);
                     }
                 });

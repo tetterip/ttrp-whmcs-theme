@@ -149,13 +149,19 @@ jQuery(document).ready(function() {
     // Mass Domain Management Bulk Action Handling
     jQuery(".setBulkAction").click(function(event) {
         event.preventDefault();
-        var id = jQuery(this).attr('id').replace("Link", "");
-        if (jQuery("#" + id).length != 0) {
-            var action = jQuery("#domainForm").attr("action");
-            jQuery("#domainForm").attr("action", action + "#" + id);
+        var id = jQuery(this).attr('id').replace('Link', ''),
+            domainForm = jQuery('#domainForm');
+
+        if (id === 'renewDomains') {
+            domainForm.attr('action', WHMCS.utils.getRouteUrl('/cart/domain/renew'));
+        } else {
+            if (jQuery('#' + id).length !== 0) {
+                var action = domainForm.attr('action');
+                domainForm.attr('action', action + '#' + id);
+            }
+            jQuery('#bulkaction').val(id);
         }
-        jQuery("#bulkaction").val(id);
-        jQuery("#domainForm").submit();
+        domainForm.submit();
     });
 
     // Stop events on objects with this class from bubbling up the dom
@@ -458,6 +464,35 @@ jQuery(document).ready(function() {
         );
     });
 
+    // Domain Pricing Table Filters
+    jQuery(".tld-filters a").click(function(e) {
+        e.preventDefault();
+
+        if (jQuery(this).hasClass('label-success')) {
+            jQuery(this).removeClass('label-success');
+        } else {
+            jQuery(this).addClass('label-success');
+        }
+
+        jQuery('.tld-row').removeClass('filtered-row');
+        jQuery('.tld-filters a.label-success').each(function(index) {
+            var filterValue = jQuery(this).data('category');
+            jQuery('.tld-row[data-category*="' + filterValue + '"]').addClass('filtered-row');
+        });
+        jQuery(".filtered-row:even").removeClass('highlighted');
+        jQuery(".filtered-row:odd").addClass('highlighted');
+        jQuery('.tld-row:not(".filtered-row")').fadeOut('', function() {
+            if (jQuery('.filtered-row').size() === 0) {
+                jQuery('.tld-row.no-tlds').show();
+            } else {
+                jQuery('.tld-row.no-tlds').hide();
+            }
+        });
+        jQuery('.tld-row.filtered-row').fadeIn();
+    });
+    jQuery(".filtered-row:even").removeClass('highlighted');
+    jQuery(".filtered-row:odd").addClass('highlighted');
+
     // DataTable data-driven auto object registration
     WHMCS.ui.dataTable.register();
 
@@ -721,4 +756,13 @@ function getTicketSuggestions() {
         lastTicketMsg = userMsg;
     }
     setTimeout('getTicketSuggestions()', 3000);
+}
+
+/**
+ * Smooth scroll to named element.
+ */
+function smoothScroll(element) {
+    $('html, body').animate({
+        scrollTop: $(element).offset().top
+    }, 500);
 }

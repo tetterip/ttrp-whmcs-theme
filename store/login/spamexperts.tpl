@@ -10,7 +10,7 @@
 
                 <h3>Spam Experts</h3>
                 <h4>Manage your Spam Experts Service</h4>
-                <form action="" method="post">
+                <form action="{routePath('upgrade')}" method="post">
                     <input type="hidden" name="action" value="manage-service" />
                     <p>
                         {if count($accounts) > 1}
@@ -27,8 +27,15 @@
                         <span class="loading hidden">
                             <i class="fa fa-spinner fa-spin"></i>
                         </span>
-                        <span class="text">Manage</span>
+                        <span class="text">{lang key="manage"}</span>
                     </button>
+                    {if count($accounts) == 1}
+                        <input type="hidden" name="isproduct" value="{if $accounts[0].type == 'addon'}0{else}1{/if}">
+                        <input type="hidden" name="serviceid" value="{$accounts[0].id}">
+                        <button type="submit" class="btn btn-default">
+                            {lang key="upgrade"}
+                        </button>
+                    {/if}
                     <span class="login-feedback"></span>
                 </form>
 

@@ -18,10 +18,14 @@
                         <select name="billingcycle" class="form-control">
                             {foreach $product->pricing()->allAvailableCycles() as $pricing}
                                 <option value="{$pricing->cycle()}"{if $requestedCycle == $pricing->cycle()} selected{/if}>
-                                    {if $pricing->isYearly()}
-                                        {$pricing->cycleInYears()} - {$pricing->yearlyPrice()}
+                                    {if $pricing->isRecurring()}
+                                        {if $pricing->isYearly()}
+                                            {$pricing->cycleInYears()} - {$pricing->yearlyPrice()}
+                                        {else}
+                                            {$pricing->cycleInMonths()} - {$pricing->monthlyPrice()}
+                                        {/if}
                                     {else}
-                                        {$pricing->cycleInMonths()} - {$pricing->monthlyPrice()}
+                                        {$pricing->toFullString()}
                                     {/if}
                                 </option>
                             {/foreach}
@@ -42,7 +46,7 @@
                 {if $allowSubdomains}
                     <li role="presentation"><a href="#sub-domain" aria-controls="sub-domain" role="tab" data-toggle="tab">Subdomain of an Existing Domain</a></li>
                 {/if}
-                <li role="presentation"><a href="#custom-domain" aria-controls="custom-domain" role="tab" data-toggle="tab">A domain I already own</a></li>
+                <li role="presentation"><a id="tabCustomDomainControl" href="#custom-domain" aria-controls="custom-domain" role="tab" data-toggle="tab">A domain I already own</a></li>
             </ul>
             <div class="tab-content store-domain-tab-content">
                 <div role="tabpanel" class="tab-pane active" id="existing-domain">
@@ -92,7 +96,7 @@
                 <div role="tabpanel" class="tab-pane" id="custom-domain">
                     <div class="row">
                         <div class="col-sm-8">
-                            <input type="text" class="form-control domain-input" placeholder="yourdomain.com" name="custom_domain">
+                            <input type="text" class="form-control domain-input" placeholder="yourdomain.com" name="custom_domain" value="{$customDomain}">
                         </div>
                         <div class="col-sm-4">
                             <span class="domain-validation domain-input-validation"></span>
@@ -258,6 +262,11 @@ jQuery(document).ready(function(){
         updateUpsellDetailsOnBillingCycleChange(cycle);
     });
     updateUpsellDetailsOnBillingCycleChange(jQuery('.payment-term').find('option:selected').val());
+
+    {if $customDomain}
+        jQuery('#tabCustomDomainControl').click();
+        jQuery('.store-order-container .domain-input').trigger('keyup');
+    {/if}
 });
 
 function updateUpsellDetailsOnBillingCycleChange(cycle) {
