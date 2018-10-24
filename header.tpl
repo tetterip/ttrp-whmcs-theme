@@ -39,7 +39,9 @@
                 <li>
                     <a href="#" data-toggle="popover" id="accountNotifications" data-placement="bottom">
                         {$LANG.notifications}
-                        {if count($clientAlerts) > 0}<span class="label label-info">NEW</span>{/if}
+                        {if count($clientAlerts) > 0}
+                            <span class="label label-info">{lang key='notificationsnew'}</span>
+                        {/if}
                         <b class="caret"></b>
                     </a>
                     <div id="accountNotificationsContent" class="hidden">
@@ -47,7 +49,7 @@
                         {foreach $clientAlerts as $alert}
                             <li>
                                 <a href="{$alert->getLink()}">
-                                    <i class="fa fa-fw fa-{if $alert->getSeverity() == 'danger'}exclamation-circle{elseif $alert->getSeverity() == 'warning'}warning{elseif $alert->getSeverity() == 'info'}info-circle{else}check-circle{/if}"></i>
+                                    <i class="fas fa-fw fa-{if $alert->getSeverity() == 'danger'}exclamation-circle{elseif $alert->getSeverity() == 'warning'}exclamation-triangle{elseif $alert->getSeverity() == 'info'}info-circle{else}check-circle{/if}"></i>
                                     <div class="message">{$alert->getMessage()}</div>
                                 </a>
                             </li>
@@ -82,7 +84,7 @@
             {if $adminMasqueradingAsClient || $adminLoggedIn}
                 <li>
                     <a href="{$WEB_ROOT}/logout.php?returntoadmin=1" class="btn btn-logged-in-admin" data-toggle="tooltip" data-placement="bottom" title="{if $adminMasqueradingAsClient}{$LANG.adminmasqueradingasclient} {$LANG.logoutandreturntoadminarea}{else}{$LANG.adminloggedin} {$LANG.returntoadminarea}{/if}">
-                        <i class="fa fa-sign-out"></i>
+                        <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
             {/if}
@@ -174,7 +176,7 @@
                         {if $registerdomainenabled || $transferdomainenabled}
                             <li>
                                 <a id="btnBuyADomain" href="domainchecker.php">
-                                    <i class="fa fa-globe"></i>
+                                    <i class="fas fa-globe"></i>
                                     <p>
                                         {$LANG.buyadomain} <span>&raquo;</span>
                                     </p>
@@ -183,7 +185,7 @@
                         {/if}
                         <li>
                             <a id="btnOrderHosting" href="cart.php">
-                                <i class="fa fa-hdd-o"></i>
+                                <i class="far fa-hdd"></i>
                                 <p>
                                     {$LANG.orderhosting} <span>&raquo;</span>
                                 </p>
@@ -191,7 +193,7 @@
                         </li>
                         <li>
                             <a id="btnMakePayment" href="clientarea.php">
-                                <i class="fa fa-credit-card"></i>
+                                <i class="fas fa-credit-card"></i>
                                 <p>
                                     {$LANG.makepayment} <span>&raquo;</span>
                                 </p>
@@ -199,7 +201,7 @@
                         </li>
                         <li>
                             <a id="btnGetSupport" href="submitticket.php">
-                                <i class="fa fa-envelope-o"></i>
+                                <i class="far fa-envelope"></i>
                                 <p>
                                     {$LANG.getsupport} <span>&raquo;</span>
                                 </p>
