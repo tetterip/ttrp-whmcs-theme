@@ -24,7 +24,6 @@
                             <li>Browser Support</li>
                             <li>1 Year</li>
                             <li>2 Years</li>
-                            <li>3 Years</li>
                         </ul>
                     </div>
                     {if count($certificates.$type) > 0}
@@ -34,12 +33,12 @@
                                     <h4>{$product->name}</h4>
                                 </div>
                                 <ul>
-                                    <li><i class="fa fa-check"></i></li>
+                                    <li><i class="fas fa-check"></i></li>
                                     <li>{$certificateFeatures.{$product->configoption1}.issuance}</li>
                                     <li>{$certificateFeatures.{$product->configoption1}.for}</li>
                                     <li>USD ${$certificateFeatures.{$product->configoption1}.warranty}</li>
-                                    <li><i class="fa fa-check"></i></li>
-                                    <li><i class="fa fa-check"></i></li>
+                                    <li><i class="fas fa-check"></i></li>
+                                    <li><i class="fas fa-check"></i></li>
                                     <li>99.9%</li>
                                     {if $product->pricing()->annual()}
                                         <li class="price 1yr">{$product->pricing()->annual()->yearlyPrice()}</li>
@@ -50,11 +49,6 @@
                                         <li class="price 2yr">{$product->pricing()->biennial()->yearlyPrice()}</li>
                                     {else}
                                         <li class="price 2yr na">-</li>
-                                    {/if}
-                                    {if $product->pricing()->triennial()}
-                                        <li class="price 3yr">{$product->pricing()->triennial()->yearlyPrice()}</li>
-                                    {else}
-                                        <li class="price 3yr na">-</li>
                                     {/if}
                                 </ul>
                                 <form method="post" action="{routePath('store-order')}">

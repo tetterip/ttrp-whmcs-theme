@@ -11,7 +11,7 @@
  * @cssdoc    version 1.0-pre
  * @package   WHMCS
  * @author    WHMCS Limited <development@whmcs.com>
- * @copyright Copyright (c) WHMCS Limited 2005-2015
+ * @copyright Copyright (c) WHMCS Limited 2005-2018
  * @license   http://www.whmcs.com/license/
  * @link      http://www.whmcs.com/
  */
@@ -1108,6 +1108,13 @@ a.domain-tld-pricing-category {
 .domain-pricing .tld-row.highlighted {
     background: #f3f9fd;
 }
+
+.domain-pricing .tld-pricing-header .col-xs-2,
+.domain-pricing .tld-pricing-header .col-sm-2 {
+    height: 56px;
+}
+.domain-pricing .tld-pricing-header .col-xs-2,
+.domain-pricing .tld-pricing-header .col-sm-2,
 .domain-pricing .tld-pricing-header .col-xs-4,
 .domain-pricing .tld-pricing-header .col-sm-4 {
     padding-top: 4px;
@@ -1444,7 +1451,7 @@ table.dtr-inline.collapsed .responsive-edit-button {
 }
 .status-active,
 .status-open,
-.status.completed {
+.status-completed {
     color: #3fad46;
 }
 .status-suspended {
@@ -1648,7 +1655,7 @@ table.dtr-inline.collapsed .responsive-edit-button {
 }
 .ticket-reply .rating span.star,
 .ticket-reply .rating-done span.star {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Pro";
     font-weight: normal;
     font-style: normal;
     display: inline-block;
@@ -1663,7 +1670,7 @@ table.dtr-inline.collapsed .responsive-edit-button {
 }
 .ticket-reply .rating span.star:before,
 .ticket-reply .rating-done span.star:before {
-    content: "\f006";
+    content: "\f005";
     padding-right: 0;
     color: #999;
 }
@@ -1767,18 +1774,22 @@ table.dtr-inline.collapsed .responsive-edit-button {
 .popover-user-notifications ul li a:hover {
     background-color: #f6f6f6;
 }
-.popover-user-notifications ul li i.fa {
+.popover-user-notifications ul li i.fas,
+.popover-user-notifications ul li i.far {
     float: left;
     padding-top: 6px;
     font-size: 21px;
 }
-.popover-user-notifications ul li i.fa.fa-check-circle {
+.popover-user-notifications ul li i.fas.fa-check-circle,
+.popover-user-notifications ul li i.far.fa-check-circle{
     color: #5cb85c;
 }
-.popover-user-notifications ul li i.fa.fa-warning {
+.popover-user-notifications ul li i.fas.fa-warning,
+.popover-user-notifications ul li i.far.fa-warning {
     color: #ecc317;
 }
-.popover-user-notifications ul li i.fa.fa-exclamation-circle {
+.popover-user-notifications ul li i.fas.fa-exclamation-circle,
+.popover-user-notifications ul li i.far.fa-exclamation-circle{
     color: #ec2d45;
 }
 .popover-user-notifications ul li .message {
@@ -1946,6 +1957,10 @@ div.sidebar .list-group-item-selected .badge {
     color: #319FC3;
 }
 
+.sidebar.sidebar-secondary {
+    clear: left;
+}
+
 @media (max-width: 991px) {
 
     .panel-actions {
@@ -2073,6 +2088,10 @@ div#twofaactivation p {
 }
 .kbarticles a .glyphicon {
     color: #8ce;
+}
+.kbcategories a.admin-inline-edit,
+.kbarticles a.admin-inline-edit {
+    font-size: 0.92em;
 }
 
 h3.kb-alsoread {
@@ -2225,6 +2244,16 @@ h3.with-badge .badge {
 }
 .admin-masquerade-notice a {
     text-decoration: underline;
+}
+
+a.admin-inline-edit {
+    margin-left: 6px;
+    font-weight: 400;
+    color: #888;
+}
+a.admin-inline-edit:hover {
+    color: #444;
+    text-decoration: none;
 }
 
 /**
@@ -2460,7 +2489,8 @@ tr.masspay-total td {
 .email-verification .btn.close:hover {
     color: rgba(55, 55, 55, 0.8);
 }
-.email-verification .fa {
+.email-verification .fas,
+.email-verification .far {
     color: #666;
     float: left;
     padding: 2px 10px 0 0;
@@ -2479,7 +2509,8 @@ tr.masspay-total td {
     .email-verification .button {
         float: right;
     }
-    .email-verification .fa {
+    .email-verification .fas,
+    .email-verification .far {
         font-size: 36px;
     }
 }
@@ -2489,7 +2520,8 @@ tr.masspay-total td {
     border-bottom: 1px solid #e3f7d5;
     color: #5cb85c;
 }
-.email-verification.success .fa {
+.email-verification.success .fas,
+.email-verification.success .far {
     color: #6fbb51;
 }
 .email-verification.failed {
@@ -2497,7 +2529,8 @@ tr.masspay-total td {
     border-bottom: 1px solid #f7f3d0;
     color: #b3a879;
 }
-.email-verification.failed .fa {
+.email-verification.failed .fas,
+.email-verification.failed .far {
     color: #b3a879;
 }
 
@@ -2611,6 +2644,14 @@ div.md-editor.active {
     background-color: #f5f5f5;
     border-bottom: 0;
 }
+
+.panel-heading i.far,
+.panel-heading i.fas,
+.panel-heading i.fal,
+.panel-heading i.fab {
+    font-size:0.85em;
+}
+
 .panel-sidebar .panel-title {
     font-size: 1.1em;
     font-weight: 300;
@@ -2636,10 +2677,10 @@ div.md-editor.active {
 .panel-sidebar .list-group-item {
     line-height: 24px;
 }
-.panel-sidebar .list-group-item i.fa:not(.fa-circle-o):not(.fa-dot-circle-o) {
+.panel-sidebar .list-group-item i:not(.fa-circle):not(.fa-dot-circle) {
     float: right;
     line-height: 24px;
-    font-size: 18px;
+    font-size: 16px;
     color: #ccc;
 }
 .panel-sidebar .list-group-item.disabled,
@@ -2649,7 +2690,8 @@ div.md-editor.active {
     opacity: 0.5;
 }
 
-.panel-sidebar a.list-group-item:hover i.fa {
+.panel-sidebar a.list-group-item:hover i.fas,
+.panel-sidebar a.list-group-item:hover i.far {
     color: #666 !important;
 }
 .panel-sidebar a.list-group-item.active,
@@ -2973,10 +3015,10 @@ div.md-editor.active {
     padding: 6px 20px;
 }
 
-.promo-banner.symantec-ssl {
-    border-top: 3px solid #43737f;
+.promo-banner.ssl {
+    border-top: 3px solid #4da24c;
 }
-.promo-banner.symantec-ssl .btn {
+.promo-banner.ssl .btn {
     background-color: #4da24c;
 }
 
@@ -2988,10 +3030,10 @@ div.md-editor.active {
 }
 
 .promo-banner.spamexperts {
-    border-top: 3px solid #58585a;
+    border-top: 3px solid #589ed7;
 }
 .promo-banner.spamexperts .btn {
-    background-color: #58585a;
+    background-color: #589ed7;
 }
 
 .promo-banner-slim.weebly .icon-left {
@@ -3001,19 +3043,51 @@ div.md-editor.active {
     margin-left: 185px;
 }
 
+.promo-banner.sitelock {
+    border-top: 3px solid #f2952d;
+}
+.promo-banner.sitelock .btn {
+    background-color: #f2952d;
+}
+
+.mc-panel-promo {
+    font-size: 0.95em;
+}
+.mc-panel-promo img {
+    display: block;
+    margin: 0 auto 6px;
+    max-width: 90%;
+    max-height: 87px;
+}
+
 /**
  * -------------------------
  * MarketConnect Service SSO
  * -------------------------
  */
 
-.panel-mc-sso .icon-container {
-    margin: 0 auto;
-    max-width: 400px;
+.panel-mc-sso {
+    padding: 0 10px 10px 10px;
 }
-.panel-mc-sso .icon-container img {
+.panel-mc-sso img {
     max-width: 100%;
-    max-height: 175px;
+    max-height: 120px;
+}
+.panel-mc-sso .row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.panel-mc-sso .col-sm-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.panel-mc-sso .form-control,
+.panel-mc-sso .btn,
+.panel-mc-sso small {
+    margin-top: 5px;
+}
+.panel-mc-sso small {
+    display: block;
 }
 
 /**
@@ -3038,7 +3112,8 @@ div.md-editor.active {
     text-overflow: ellipsis;
 }
 
-.btn-social i.fa {
+.btn-social i.fas,
+.btn-social i.far {
     position: absolute;
     left: 0;
     top: 0;
@@ -3134,6 +3209,13 @@ div.md-editor.active {
     text-align: center;
 }
 
+.marketing-email-optin {
+    margin: 0 0 20px 0;
+    padding: 10px 20px 20px;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+}
+
 /*
  * Section Dividers
  */
@@ -3154,7 +3236,6 @@ div.md-editor.active {
     color: #058;
     background-color: #fff;
 }
-
 
 /**
  * Form fields
@@ -3236,7 +3317,9 @@ div.md-editor.active {
 }
 
 #registration .field[disabled],
-#registration .field[readonly] {
+#registration .field[readonly],
+#registration .form-control[disabled],
+#registration .form-control[readonly] {
     background-color: #f8f8f8;
     opacity: 1;
 }
@@ -3247,4 +3330,109 @@ div.md-editor.active {
     margin-bottom: 10px;
     color: #888;
     font-size: 12px;
+}
+
+/**
+ * -------------------------
+ * Service Upgrade
+ * -------------------------
+ */
+
+.upgrade .product-to-be-upgraded {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f8f8;
+}
+.upgrade .product-to-be-upgraded h4,
+.upgrade .product-to-be-upgraded h5 {
+    margin: 0;
+}
+.upgrade .products {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.upgrade .products .column {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.upgrade .products .product {
+    margin: 20px 0;
+    padding: 0;
+    background-color: #fff;
+}
+.upgrade .products .product .current,
+.upgrade .products .product .recommended {
+    padding: 5px;
+    background-color: #ffbc00;
+    color: #f5f5f5;
+    font-weight: bold;
+    text-align: center;
+}
+.upgrade .products .product .recommended {
+    background-color: #25ac2f;
+}
+.upgrade .products .product ul {
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+.upgrade .products .product .footer {
+    border: 1px solid #eee;
+    border-top: 0;
+}
+.upgrade .products .product .header {
+    margin: 0;
+    padding: 20px;
+    background-color: #2b5580;
+    color: #fff;
+}
+.upgrade .products .product .header p {
+    font-size: 1.1em;
+    font-weight: 300;
+}
+.upgrade .products .product ul {
+    margin: 0;
+    padding: 20px 25px;
+    list-style: none;
+}
+.upgrade .products .product ul li {
+    line-height: 25px;
+    font-size: 0.9em;
+    text-align: right;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+}
+.upgrade .products .product ul li:last-child {
+    border: 0;
+}
+.upgrade .products .product ul li span {
+    float: left;
+    color: #444;
+}
+.upgrade .products .fas,
+.upgrade .products .far {
+    font-size: 1.3em;
+}
+.upgrade .products .fa-check {
+    color: #23ad2e;
+}
+.upgrade .products .product .footer {
+    margin: 0;
+    padding: 20px;
+}
+.upgrade .products .product .footer select {
+    margin-bottom: 10px;
+}
+.upgrade .products .product .btn {
+    background-color: #2b5580;
+    color: #fff;
+}
+
+/**
+ * Helper Alerts
+ */
+.alert .fas.pull-left {
+    margin: -3px 0 0 -3px;
+}
+.alert .alert-text {
+    margin-left: 56px;
 }

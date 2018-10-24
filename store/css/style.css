@@ -309,8 +309,18 @@ section#main-body {
     font-size: 0.92em;
 }
 
+.landing-page.weebly .weebly-lite-plan {
+    margin: 0 0 30px 0;
+    padding: 20px;
+    background-color: #dceefd;
+    border: 1px solid #a7cdec;
+}
+
 .landing-page.weebly .pricing-item ul {
-    height: 235px;
+    height: 290px;
+}
+.landing-page.weebly .pricing-item ul.ecommerce-features {
+    height: 265px;
 }
 
 @media (max-width: 767px) {
@@ -367,6 +377,12 @@ section#main-body {
     margin-top: 0;
 }
 
+@media (min-width: 992px) {
+    .landing-page.ssl .navbar .navbar-nav > li {
+        width: 20%;
+    }
+}
+
 .landing-page.ssl .content-block h1,
 .landing-page.ssl .content-block h2,
 .landing-page.ssl .content-block h3,
@@ -379,7 +395,7 @@ section#main-body {
 
 .landing-page.ssl .validation-levels {
     padding: 20px 20px 0 20px;
-    background-color: #1b446d;
+    background-color: #327ba7;
     text-align: center;
 }
 .landing-page.ssl .validation-levels h3 {
@@ -420,6 +436,42 @@ section#main-body {
 .landing-page.ssl .validation-levels a.show-all {
     line-height: 50px;
     color: #eee;
+}
+
+.landing-page.ssl .standout {
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+.landing-page.ssl .what-is-ssl ul {
+    list-style: none;
+    margin: 30px 0;
+}
+.landing-page.ssl .what-is-ssl ul li {
+    line-height: 2em;
+}
+.landing-page.ssl .what-is-ssl .fas,
+.landing-page.ssl .what-is-ssl .far {
+    float: left;
+    color: #44737e;
+    font-size: 2em;
+    padding-right: 15px;
+}
+
+.landing-page.ssl .ssl-benefits {
+    margin-top: 0;
+    padding-top: 0;
+}
+.landing-page.ssl .ssl-benefits .row {
+    margin-top: 40px;
+    text-align: center;
+    color: #444;
+}
+.landing-page.ssl .ssl-benefits i {
+    display: block;
+    margin: 20px 0;
+    font-size: 5em;
+    color: #566b6f;
 }
 
 .landing-page.ssl .browser-notice {
@@ -483,6 +535,36 @@ section#main-body {
     }
 }
 
+.landing-page.ssl .competitive-upgrade-promo {
+    margin: 80px 0 40px 0;
+    background-color: #327aa7;
+    font-size: 2em;
+    color: #fff;
+    font-weight: 300;
+    text-align: center;
+}
+.landing-page.ssl .competitive-upgrade-promo a {
+    color: #fff;
+    text-decoration: underline;
+}
+.landing-page.ssl .competitive-upgrade-banner {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   padding: 12px;
+   width: 100%;
+   background: #444;
+   color: #eee;
+   z-index: 100;
+}
+.landing-page.ssl .competitive-upgrade-banner button.close {
+    color: #fff;
+}
+.landing-page.ssl .competitive-upgrade-banner h4,
+.landing-page.ssl .competitive-upgrade-banner p {
+    margin: 2px 0;
+}
+
 .landing-page.ssl .detailed-info {
     padding: 80px 0;
     background-color: #f8f8f8;
@@ -497,14 +579,14 @@ section#main-body {
     text-align: center;
 }
 .landing-page.ssl .detailed-info .panel-heading {
-    background-color: #336699;
+    background-color: #327aa7;
     color: #fff;
     border-radius: 3px;
 }
 .landing-page.ssl .detailed-info .panel-heading h4 {
     margin: 0;
     font-weight: 300;
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
 .landing-page.ssl .detailed-info .panel {
     background-color: transparent;
@@ -516,6 +598,7 @@ section#main-body {
     background-color: #fff;
     border: 1px solid #ddd;
     box-shadow: none;
+    font-size: 1.2em;
 }
 .landing-page.ssl .detailed-info .panel-body h4 {
     margin: 20px 0;
@@ -775,4 +858,164 @@ section#main-body {
     padding: 15px 15px;
     font-size: 1.1em;
     font-weight: 300;
+}
+
+.landing-page.sitelock .hero img {
+    padding-bottom: 15px;
+}
+.landing-page.sitelock h2 {
+    margin: 0 0 5px 0;
+    font-size: 3em;
+}
+.landing-page.sitelock h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.8em;
+}
+.landing-page.sitelock h4 {
+    font-size: 1.7em;
+}
+.landing-page.sitelock p {
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+.landing-page.sitelock .plans {
+    padding: 80px 0;
+    background-color:#336699;
+}
+.landing-page.sitelock .plans h2,
+.landing-page.sitelock .emergency h2,
+.landing-page.sitelock .plans h3,
+.landing-page.sitelock .emergency h3 {
+    color: #fff;
+}
+
+.landing-page.sitelock .emergency h2.text-danger {
+    color: #ff8f8f;
+}
+
+.landing-page.sitelock .plans .plan-comparison {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.landing-page.sitelock .plans .plan-comparison .col-lg-3,
+.landing-page.sitelock .plans .plan-comparison .col-lg-4,
+.landing-page.sitelock .plans .plan-comparison .col-lg-6,
+.landing-page.sitelock .plans .plan-comparison .col-lg-12 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.landing-page.sitelock .plans .plan {
+    margin: 20px 0;
+    padding: 0;
+    background-color: #fff;
+}
+.landing-page.sitelock .plans .plan .header {
+    margin: 0;
+    padding: 20px;
+    background-color: #2b5580;
+    color: #fff;
+}
+.landing-page.sitelock .plans .plan .header p {
+    font-size: 1.3em;
+}
+.landing-page.sitelock .plans .plan ul {
+    margin: 0;
+    padding: 20px 25px;
+    list-style: none;
+}
+@media (min-width: 992px) {
+    .landing-page.sitelock .plans .plan ul {
+        height: 440px;
+    }
+}
+.landing-page.sitelock .plans .plan ul li {
+    line-height: 25px;
+    font-size: 0.9em;
+    text-align: right;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+}
+.landing-page.sitelock .plans .plan ul li:last-child {
+    border: 0;
+}
+.landing-page.sitelock .plans .plan ul li span {
+    float: left;
+    color: #444;
+}
+.landing-page.sitelock .plans .fas,
+.landing-page.sitelock .plans .far {
+    font-size: 1.3em;
+}
+.landing-page.sitelock .plans .fa-check {
+    color: #23ad2e;
+}
+.landing-page.sitelock .plans .plan .footer {
+    margin: 0;
+    padding: 20px;
+}
+.landing-page.sitelock .plans .plan .footer select {
+    margin-bottom: 10px;
+}
+.landing-page.sitelock .plans .plan .btn {
+    background-color: #2b5580;
+    color: #fff;
+}
+
+.landing-page.sitelock .feature-wrapper {
+    margin: 0 0 20px 0;
+}
+.landing-page.sitelock .feature-wrapper i {
+    float: left;
+    font-size: 5em;
+}
+.landing-page.sitelock .feature-wrapper .content {
+    margin-left: 100px;
+}
+.landing-page.sitelock .feature-wrapper p {
+    font-size: 1.3em;
+}
+
+.landing-page.sitelock .features {
+    margin: 0;
+    padding: 40px 0;
+    background-color: transparent;
+    text-align: left;
+}
+.landing-page.sitelock .features .fas,
+.landing-page.sitelock .features .far {
+    color: #336699;
+}
+
+.landing-page.sitelock .emergency {
+    padding: 80px 0;
+    background-color: #444;
+    color: #fff;
+}
+.landing-page.sitelock .emergency .price {
+    font-size: 2em;
+}
+.landing-page.sitelock .emergency .fas,
+.landing-page.sitelock .emergency .far {
+    color: #f5e88e;
+}
+.landing-page.sitelock .emergency .btn {
+    padding: 15px 45px;
+    background-color: #f5e88e;
+    border-color: #afa563;
+    font-size: 1.3em;
+}
+
+.landing-page.sitelock .faq {
+    padding-bottom: 10px;
+}
+.landing-page.sitelock .faq .panel-group {
+    margin: 30px 0;
+    font-size: 1.2em;
+}
+.landing-page.sitelock .faq .panel-group .panel-body {
+    padding: 20px;
+}
+.landing-page.sitelock .faq .panel-group li {
+    margin-top: 10px;
 }

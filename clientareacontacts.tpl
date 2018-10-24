@@ -112,7 +112,7 @@
 
             <div class="form-group">
                 <label class="full control-label">{$LANG.subaccountpermissions}</label>
-                <div class="checkbox clearfix">
+                <div class="checkbox clearfix" id="contactPermissions">
                     {foreach $allPermissions as $permission}
                         <div class="col-sm-6">
                             <label>
@@ -123,6 +123,13 @@
                             </label>
                         </div>
                     {/foreach}
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-check-all" data-checkbox-container="contactPermissions" data-btn-check-toggle="1" id="btnSelectAll-contactPermissions" data-label-text-select="{lang key='checkAll'}" data-label-text-deselect="{lang key='uncheckAll'}">
+                            {lang key='checkAll'}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -190,9 +197,10 @@
 
 {/if}
 
-<script type="text/javascript">
+<script>
     jQuery(document).ready( function ()
     {
+        WHMCS.form.register();
         jQuery('.removeAccountLink').click(function (e) {
             e.preventDefault();
             var authUserID = jQuery(this).data('authid');
@@ -207,7 +215,7 @@
                     closeOnConfirm: false
                 },
                 function(){
-                    jQuery.post('{routePath('auth-manage-client-delete')}' + authUserID,
+                    WHMCS.http.jqClient.post('{routePath('auth-manage-client-delete')}' + authUserID,
                         {
                             'token': '" . generate_token("plain") . "'
                         }).done(function(data) {

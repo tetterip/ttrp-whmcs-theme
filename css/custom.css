@@ -10,3 +10,18 @@
 select#inputCountry {
     line-height: initial;
 }
+
+.domain-check-availability {
+    width: 140px;
+}
+
+.domain-checker-bg
+{
+	background-image: none;
+}
+
+
+#order-standard_cart .view-cart-items-header
+{
+	background-color: #2d8196;
+}

@@ -7,6 +7,12 @@
 <div class="tab-content margin-bottom">
     <div class="tab-pane fade in active" id="tabOverview">
 
+        {if $alerts}
+            {foreach $alerts as $alert}
+                {include file="$template/includes/alert.tpl" type=$alert.type msg="<strong>{$alert.title}</strong><br>{$alert.description}" textcenter=true}
+            {/foreach}
+        {/if}
+
         {if $systemStatus != 'Active'}
             <div class="alert alert-warning text-center" role="alert">
                 {$LANG.domainCannotBeManagedUnlessActive}
@@ -64,7 +70,7 @@
 
         <br />
 
-        {if $systemStatus == 'Active'
+        {if $canDomainBeManaged
             and (
                 $managementoptions.nameservers or
                 $managementoptions.contacts or
@@ -75,21 +81,21 @@
             <h4>{$LANG.doToday}</h4>
 
             <ul>
-                {if $managementoptions.nameservers}
+                {if $systemStatus == 'Active' && $managementoptions.nameservers}
                     <li>
                         <a class="tabControlLink" data-toggle="tab" href="#tabNameservers">
                             {$LANG.changeDomainNS}
                         </a>
                     </li>
                 {/if}
-                {if $managementoptions.contacts}
+                {if $systemStatus == 'Active' && $managementoptions.contacts}
                     <li>
                         <a href="clientarea.php?action=domaincontacts&domainid={$domainid}">
                             {$LANG.updateWhoisContact}
                         </a>
                     </li>
                 {/if}
-                {if $managementoptions.locking}
+                {if $systemStatus == 'Active' && $managementoptions.locking}
                     <li>
                         <a class="tabControlLink" data-toggle="tab" href="#tabReglock">
                             {$LANG.changeRegLock}
@@ -98,7 +104,7 @@
                 {/if}
                 {if $renew}
                     <li>
-                        <a href="cart.php?gid=renewals">
+                        <a href="{routePath('domain-renewal', $domain)}">
                             {$LANG.renewYourDomain}
                         </a>
                     </li>
@@ -258,7 +264,7 @@
         {if $addons.idprotection}
             <div class="row margin-bottom">
                 <div class="col-xs-3 col-md-2 text-center">
-                    <i class="fa fa-shield fa-3x"></i>
+                    <i class="fas fa-shield-alt fa-3x"></i>
                 </div>
                 <div class="col-xs-9 col-md-10">
                     <strong>{$LANG.domainidprotection}</strong><br />
@@ -279,7 +285,7 @@
         {if $addons.dnsmanagement}
             <div class="row margin-bottom">
                 <div class="col-xs-3 col-md-2 text-center">
-                    <i class="fa fa-cloud fa-3x"></i>
+                    <i class="fas fa-cloud fa-3x"></i>
                 </div>
                 <div class="col-xs-9 col-md-10">
                     <strong>{$LANG.domainaddonsdnsmanagement}</strong><br />
@@ -300,7 +306,7 @@
         {if $addons.emailforwarding}
             <div class="row margin-bottom">
                 <div class="col-xs-3 col-md-2 text-center">
-                    <i class="fa fa-envelope fa-3x">&nbsp;</i><i class="fa fa-mail-forward fa-2x"></i>
+                    <i class="fas fa-envelope fa-3x">&nbsp;</i><i class="fas fa-share fa-2x"></i>
                 </div>
                 <div class="col-xs-9 col-md-10">
                     <strong>{$LANG.domainemailforwarding}</strong><br />

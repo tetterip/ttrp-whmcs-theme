@@ -1,5 +1,5 @@
 <!-- Styling -->
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:400,700&amp;subset=greek" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:400,700&amp;subset=greek" rel="stylesheet">
 <link href="{$WEB_ROOT}/templates/{$template}/css/all.css?v={$versionHash}" rel="stylesheet">
 <link href="{$WEB_ROOT}/templates/{$template}/css/custom.css" rel="stylesheet">
 
@@ -15,7 +15,9 @@
         markdownGuide = '{lang key="markdown.title"}',
         locale = '{if !empty($mdeLocale)}{$mdeLocale}{else}en{/if}',
         saved = '{lang key="markdown.saved"}',
-        saving = '{lang key="markdown.saving"}';
+        saving = '{lang key="markdown.saving"}',
+        whmcsBaseUrl = "{\WHMCS\Utility\Environment\WebHelper::getBaseUrl()}",
+        recaptchaSiteKey = "{$recaptchaSiteKey}";
 </script>
 <script src="{$WEB_ROOT}/templates/{$template}/js/scripts.min.js?v={$versionHash}"></script>
 <script src="{$WEB_ROOT}/templates/{$template}/js/validator.min.js"></script>

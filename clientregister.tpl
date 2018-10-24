@@ -41,7 +41,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputFirstName" class="field-icon">
-                            <i class="fa fa-user"></i>
+                            <i class="fas fa-user"></i>
                         </label>
                         <input type="text" name="firstname" id="inputFirstName" class="field form-control" placeholder="{$LANG.orderForm.firstName}" value="{$clientfirstname}" {if !in_array('firstname', $optionalFields)}required{/if} autofocus>
                     	<div class="help-block with-errors"></div>
@@ -50,7 +50,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputLastName" class="field-icon">
-                            <i class="fa fa-user"></i>
+                            <i class="fas fa-user"></i>
                         </label>
                         <input type="text" name="lastname" id="inputLastName" class="field form-control" placeholder="{$LANG.orderForm.lastName}" value="{$clientlastname}" {if !in_array('lastname', $optionalFields)}required{/if}>
                     	<div class="help-block with-errors"></div>
@@ -61,7 +61,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputEmail" class="field-icon">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fas fa-envelope"></i>
                         </label>
                         <input type="email" name="email" id="inputEmail" class="field form-control" placeholder="{$LANG.orderForm.emailAddress}" value="{$clientemail}">
                         <div class="help-block with-errors"></div>
@@ -71,7 +71,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputPhone" class="field-icon">
-                            <i class="fa fa-phone"></i>
+                            <i class="fas fa-phone"></i>
                         </label>
                         <input type="text" name="phonenumber" id="inputPhone" class="field" placeholder="{$LANG.orderForm.phoneNumber}" value="{$clientphonenumber}" pattern='^[\+]\d&#123;2&#125;[\.]\d&#123;10&#125;$'>
                     <div class="help-block with-errors"></div>
@@ -88,7 +88,7 @@
                 <div class="col-sm-12">
                     <div class="form-group prepend-icon">
                         <label for="inputCompanyName" class="field-icon">
-                            <i class="fa fa-building"></i>
+                            <i class="fas fa-building"></i>
                         </label>
                         <input type="text" name="companyname" id="inputCompanyName" class="field" placeholder="{$LANG.orderForm.companyName} ({$LANG.orderForm.optional})" value="{$clientcompanyname}">
                     </div>
@@ -96,7 +96,7 @@
                 <div class="col-sm-12">
                     <div class="form-group prepend-icon">
                         <label for="inputAddress1" class="field-icon">
-                            <i class="fa fa-building-o"></i>
+                            <i class="far fa-building"></i>
                         </label>
                         <input type="text" name="address1" id="inputAddress1" class="field form-control" placeholder="{$LANG.orderForm.streetAddress}" value="{$clientaddress1}"  {if !in_array('address1', $optionalFields)}required{/if}>
                     	<div class="help-block with-errors"></div>
@@ -105,7 +105,7 @@
                 <div class="col-sm-12">
                     <div class="form-group prepend-icon">
                         <label for="inputAddress2" class="field-icon">
-                            <i class="fa fa-map-marker"></i>
+                            <i class="fas fa-map-marker-alt"></i>
                         </label>
                         <input type="text" name="address2" id="inputAddress2" class="field" placeholder="{$LANG.orderForm.streetAddress2}" value="{$clientaddress2}">
                     </div>
@@ -113,7 +113,7 @@
                 <div class="col-sm-4">
                     <div class="form-group prepend-icon">
                         <label for="inputCity" class="field-icon">
-                            <i class="fa fa-building-o"></i>
+                            <i class="far fa-building"></i>
                         </label>
                         <input type="text" name="city" id="inputCity" class="field form-control" placeholder="{$LANG.orderForm.city}" value="{$clientcity}"  {if !in_array('city', $optionalFields)}required{/if}>
                     	<div class="help-block with-errors"></div>
@@ -122,10 +122,10 @@
                 <div class="col-sm-5">
                     <div class="form-group prepend-icon">
                         <label for="state" class="field-icon" id="inputStateIcon">
-                            <i class="fa fa-map-signs"></i>
+                            <i class="fas fa-map-signs"></i>
                         </label>
                         <label for="stateinput" class="field-icon" id="inputStateIcon">
-                            <i class="fa fa-map-signs"></i>
+                            <i class="fas fa-map-signs"></i>
                         </label>
                         <input type="text" name="state" id="state" class="field form-control" placeholder="{$LANG.orderForm.state}" value="{$clientstate}"  {if !in_array('state', $optionalFields)}required{/if}>
                     	<div class="help-block with-errors"></div>
@@ -134,7 +134,7 @@
                 <div class="col-sm-3">
                     <div class="form-group prepend-icon">
                         <label for="inputPostcode" class="field-icon">
-                            <i class="fa fa-certificate"></i>
+                            <i class="fas fa-certificate"></i>
                         </label>
                         <input type="text" name="postcode" id="inputPostcode" class="field form-control" placeholder="{$LANG.orderForm.postcode}" value="{$clientpostcode}" {if !in_array('postcode', $optionalFields)}required{/if}>
                     	<div class="help-block with-errors"></div>
@@ -143,7 +143,7 @@
                 <div class="col-sm-12">
                     <div class="form-group prepend-icon">
                         <label for="inputCountry" class="field-icon" id="inputCountryIcon">
-                            <i class="fa fa-globe"></i>
+                            <i class="fas fa-globe"></i>
                         </label>
                         <select name="country" id="inputCountry" class="field form-control">
                             {foreach $clientcountries as $countryCode => $countryName}
@@ -182,7 +182,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputCurrency" class="field-icon">
-                            <i class="fa fa-money"></i>
+                            <i class="far fa-money-bill-alt"></i>
                         </label>
                         <select id="inputCurrency" name="currency" class="field form-control">
                             {foreach from=$currencies item=curr}
@@ -205,7 +205,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputNewPassword1" class="field-icon">
-                            <i class="fa fa-lock"></i>
+                            <i class="fas fa-lock"></i>
                         </label>
                         <input type="password" name="password" id="inputNewPassword1" data-error-threshold="{$pwStrengthErrorThreshold}" data-warning-threshold="{$pwStrengthWarningThreshold}" data-validate="false" class="field" placeholder="{$LANG.clientareapassword}" autocomplete="off"{if $remote_auth_prelinked} value="{$password}"{/if}>
                     </div>
@@ -213,7 +213,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputNewPassword2" class="field-icon">
-                            <i class="fa fa-lock"></i>
+                            <i class="fas fa-lock"></i>
                         </label>
                         <input type="password" name="password2" id="inputNewPassword2" class="field" placeholder="{$LANG.clientareaconfirmpassword}" autocomplete="off"{if $remote_auth_prelinked} data-validate="false" value="{$password}"{/if}>
                     </div>
@@ -243,7 +243,7 @@
                 <div class="col-sm-6">
                     <div class="form-group prepend-icon">
                         <label for="inputSecurityQAns" class="field-icon">
-                            <i class="fa fa-lock"></i>
+                            <i class="fas fa-lock"></i>
                         </label>
                         <input type="password" name="securityqans" id="inputSecurityQAns" class="field form-control" data-validate="false" placeholder="{$LANG.clientareasecurityanswer}" autocomplete="off">
                     </div>
@@ -251,6 +251,14 @@
             </div>
             {/if}
         </div>
+
+        {if $showMarketingEmailOptIn}
+            <div class="marketing-email-optin">
+                <h4>{lang key='emailMarketing.joinOurMailingList'}</h4>
+                <p>{$marketingEmailOptInMessage}</p>
+                <input type="checkbox" name="marketingoptin" value="1"{if $marketingEmailOptIn} checked{/if} class="no-icheck toggle-switch-success" data-size="small" data-on-text="{lang key='yes'}" data-off-text="{lang key='no'}">
+            </div>
+        {/if}
 
         {include file="$template/includes/captcha.tpl"}
 
@@ -260,7 +268,7 @@
                 <div class="col-md-12">
                     <div class="panel panel-danger tospanel">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><span class="fa fa-exclamation-triangle tosicon"></span> &nbsp; {$LANG.ordertos}</h3>
+                            <h3 class="panel-title"><span class="fas fa-exclamation-triangle tosicon"></span> &nbsp; {$LANG.ordertos}</h3>
                         </div>
                         <div class="panel-body">
                             <div class="col-md-12">
