@@ -52,7 +52,12 @@ jQuery(document).ready(function() {
     });
 
     // Enable tooltips
-    jQuery('[data-toggle="tooltip"]').tooltip();
+    // Attach function to body so tooltips inserted by ajax will load
+    jQuery(function(jQuery){
+        jQuery('body').tooltip({
+            selector: '[data-toggle="tooltip"]'
+        });
+    });
 
     // Logic to dismiss popovers on click outside
     jQuery('body').on('click', function (e) {
@@ -297,7 +302,7 @@ jQuery(document).ready(function() {
             autofocus: false,
             savable: false,
             resize: 'vertical',
-            iconlibrary: 'fa',
+            iconlibrary: 'glyph',
             language: locale,
             onShow: function(e){
                 var content = '',
@@ -348,7 +353,7 @@ jQuery(document).ready(function() {
                         hotkey: "Ctrl+F1",
                         btnClass: "btn open-modal",
                         icon: {
-                            glyph: 'glyphicons glyphicons-question-sign',
+                            glyph: 'fas fa-question-circle',
                             fa: 'fa fa-question-circle',
                             'fa-3': 'icon-question-sign'
                         },
@@ -520,6 +525,67 @@ jQuery(document).ready(function() {
         }
         return true;
     });
+
+    jQuery('.ssl-state.ssl-sync').each(function () {
+        var self = jQuery(this);
+        WHMCS.http.jqClient.post(
+            WHMCS.utils.getRouteUrl('/domain/ssl-check'),
+            {
+                'type': self.parent('td').data('type'),
+                'domain': self.parent('td').data('domain'),
+                'token': csrfToken
+            },
+            function (data) {
+                if (data.invalid) {
+                    self.hide();
+                } else {
+                    self.replaceWith(
+                        '<img src="' + data.image + '" data-toggle="tooltip" title="' + data.tooltip + '" class="' + data.class + '">'
+                    );
+                }
+            }
+        );
+    });
+    jQuery(document).on('click', '.ssl-state.ssl-inactive', function(e) {
+        e.preventDefault();
+        window.location.href = WHMCS.utils.getRouteUrl('/ssl-purchase');
+    });
+
+    WHMCS.recaptcha.register();
+
+    var dynamicRecaptchaContainer = jQuery('#divDynamicRecaptcha');
+    var homepageHasRecaptcha = jQuery(dynamicRecaptchaContainer).length > 0;
+    var homepageHasInvisibleRecaptcha = homepageHasRecaptcha && jQuery(dynamicRecaptchaContainer).data('size') === 'invisible';
+
+    if (homepageHasRecaptcha && !homepageHasInvisibleRecaptcha) {
+        jQuery('section#home-banner').addClass('with-recaptcha');
+    }
+
+    if (jQuery('.domainchecker-homepage-captcha').length && !homepageHasInvisibleRecaptcha) {
+        // invisible reCaptcha doesn't play well with onsubmit() handlers on all submissions following a prevented one
+
+        jQuery('#frmDomainHomepage').submit(function (e) {
+            var frmDomain = jQuery('#frmDomainHomepage'),
+                inputDomain = jQuery(frmDomain).find('input[name="domain"]'),
+                reCaptchaContainer = jQuery('#divDynamicRecaptcha'),
+                reCaptcha = jQuery('#g-recaptcha-response'),
+                captcha = jQuery('#inputCaptcha');
+
+            if (reCaptcha.length && !reCaptcha.val()) {
+                reCaptchaContainer.tooltip('show');
+
+                e.preventDefault();
+                return;
+            }
+
+            if (captcha.length && !captcha.val()) {
+                captcha.tooltip('show');
+
+                e.preventDefault();
+                return;
+            }
+        });
+    }
 });
 
 /**
@@ -559,6 +625,9 @@ function clickableSafeRedirect(clickEvent, target, newWindow) {
     var eventTable = clickEvent.target.parentNode.parentNode.parentNode;
     if (jQuery(eventTable).hasClass('collapsed')) {
         // This is a mobile device sized display, and datatables has triggered folding
+        return false;
+    }
+    if (eventSource === 'i' && jQuery(clickEvent.target).hasClass('ssl-required')) {
         return false;
     }
     if(eventSource != 'button' && eventSource != 'a') {
