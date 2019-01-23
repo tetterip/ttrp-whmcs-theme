@@ -154,6 +154,16 @@
                         </select>
                     </div>
                 </div>
+                {if $showTaxIdField}
+                    <div class="col-sm-12">
+                        <div class="form-group prepend-icon">
+                            <label for="inputTaxId" class="field-icon">
+                                <i class="fas fa-building"></i>
+                            </label>
+                            <input type="text" name="tax_id" id="inputTaxId" class="field" placeholder="{lang key=\WHMCS\Billing\Tax\Vat::getLabel()} ({$LANG.orderForm.optional})" value="{$clientsdetails.tax_id}"{if $loggedin} readonly="readonly"{/if}>
+                        </div>
+                    </div>
+                {/if}
             </div>
             {if $customfields || $currencies}
             <div class="sub-heading">
@@ -193,8 +203,8 @@
                 </div>
                 {/if}
             </div>
+            {/if}
         </div>
-        {/if}
         <div id="containerNewUserSecurity" {if $remote_auth_prelinked && !$securityquestions } class="hidden"{/if}>
 
             <div class="sub-heading">
@@ -283,7 +293,7 @@
             </div>
         {/if}
         <p align="center">
-            <input class="btn btn-large btn-primary" type="submit" value="{$LANG.clientregistertitle}"/>
+            <input class="btn btn-large btn-primary{$captcha->getButtonClass($captchaForm)}" type="submit" value="{$LANG.clientregistertitle}"/>
         </p>
     </form>
 </div>

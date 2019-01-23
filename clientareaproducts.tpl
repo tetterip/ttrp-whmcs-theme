@@ -1,16 +1,16 @@
-{include file="$template/includes/tablelist.tpl" tableName="ServicesList" filterColumn="3"}
+{include file="$template/includes/tablelist.tpl" tableName="ServicesList" filterColumn="4" noSortColumns="0"}
 <script type="text/javascript">
     jQuery(document).ready( function ()
     {
         var table = jQuery('#tableServicesList').removeClass('hidden').DataTable();
         {if $orderby == 'product'}
-            table.order([0, '{$sort}'], [3, 'asc']);
+            table.order([1, '{$sort}'], [4, 'asc']);
         {elseif $orderby == 'amount' || $orderby == 'billingcycle'}
-            table.order(1, '{$sort}');
-        {elseif $orderby == 'nextduedate'}
             table.order(2, '{$sort}');
-        {elseif $orderby == 'domainstatus'}
+        {elseif $orderby == 'nextduedate'}
             table.order(3, '{$sort}');
+        {elseif $orderby == 'domainstatus'}
+            table.order(4, '{$sort}');
         {/if}
         table.draw();
         jQuery('#tableLoading').addClass('hidden');
@@ -20,6 +20,7 @@
     <table id="tableServicesList" class="table table-list hidden">
         <thead>
             <tr>
+                <th></th>
                 <th>{$LANG.orderproduct}</th>
                 <th>{$LANG.clientareaaddonpricing}</th>
                 <th>{$LANG.clientareahostingnextduedate}</th>
@@ -30,6 +31,13 @@
         <tbody>
             {foreach key=num item=service from=$services}
                 <tr onclick="clickableSafeRedirect(event, 'clientarea.php?action=productdetails&amp;id={$service.id}', false)">
+                    <td class="text-center{if $service.sslStatus} ssl-info{/if}" data-element-id="{$service.id}" data-type="service"{if $service.domain} data-domain="{$service.domain}"{/if}>
+                        {if $service.sslStatus}
+                            <img src="{$service.sslStatus->getImagePath()}" data-toggle="tooltip" title="{$service.sslStatus->getTooltipContent()}" class="{$service.sslStatus->getClass()}"/>
+                        {elseif !$service.isActive}
+                            <img src="{$BASE_PATH_IMG}/ssl/ssl-inactive-domain.png" data-toggle="tooltip" title="{lang key='sslState.sslInactiveService'}">
+                        {/if}
+                    </td>
                     <td><strong>{$service.product}</strong>{if $service.domain}<br /><a href="http://{$service.domain}" target="_blank">{$service.domain}</a>{/if}</td>
                     <td class="text-center" data-order="{$service.amountnum}">{$service.amount}<br />{$service.billingcycle}</td>
                     <td class="text-center"><span class="hidden">{$service.normalisedNextDueDate}</span>{$service.nextduedate}</td>
