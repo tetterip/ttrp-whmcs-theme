@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/ttrpgr/public_html/clients/templates/ttrp
+    - export DEPLOYPATH=/home/ttrpgr/public_html/clients/templates/ttrp/
     - /bin/cp * $DEPLOYPATH
