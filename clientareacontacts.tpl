@@ -62,6 +62,11 @@
                     <div class="help-block with-errors"></div>
                     <p class="help-block">Εισάγετε το τηλέφωνό σας σε μορφή +30.69ΧΧΧΧΧΧΧΧ</p>
                 </div>
+		
+		<div class="form-group">
+                    <label for="inputTaxId" class="control-label">{lang key=$taxIdLabel}</label>
+                    <input type="text" name="tax_id" id="inputTaxId" class="form-control" value="{$contactTaxId}" />
+                </div>
 
                 <div class="form-group">
                     <label class="control-label" for="inputSubaccountActivate">{$LANG.subaccountactivate}</label>
@@ -135,16 +140,21 @@
 
             <fieldset class="form-horizontal">
                 <div id="newPassword1" class="form-group has-feedback">
-                    <label for="inputNewPassword1" class="col-sm-5 control-label">{$LANG.newpassword}</label>
-                    <div class="col-sm-6">
+                    <label for="inputNewPassword1" class="col-sm-4 control-label">{$LANG.newpassword}</label>
+                    <div class="col-sm-5">
                         <input type="password" class="form-control" id="inputNewPassword1" name="password" autocomplete="off" />
                         <span class="form-control-feedback glyphicon"></span>
                         {include file="$template/includes/pwstrength.tpl" noDisable=true}
                     </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-default generate-password" data-targetfields="inputNewPassword1,inputNewPassword2">
+                            {$LANG.generatePassword.btnLabel}
+                        </button>
+                    </div>
                 </div>
                 <div id="newPassword2" class="form-group has-feedback">
-                    <label for="inputNewPassword2" class="col-sm-5 control-label">{$LANG.confirmnewpassword}</label>
-                    <div class="col-sm-6">
+                    <label for="inputNewPassword2" class="col-sm-4 control-label">{$LANG.confirmnewpassword}</label>
+                    <div class="col-sm-5">
                         <input type="password" class="form-control" id="inputNewPassword2" name="password2" autocomplete="off" />
                         <span class="form-control-feedback glyphicon"></span>
                         <div id="inputNewPassword2Msg">
